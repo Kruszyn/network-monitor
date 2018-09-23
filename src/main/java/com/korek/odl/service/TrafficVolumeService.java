@@ -1,6 +1,7 @@
 package com.korek.odl.service;
 
 import com.korek.odl.OdlApplication;
+import com.korek.odl.model.TrafficVolume;
 import com.korek.odl.model.json.Node;
 import com.korek.odl.model.json.NodeConnector;
 import com.korek.odl.model.json.Nodes;
@@ -13,6 +14,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class TrafficVolumeService implements ITrafficVolumeService{
 
@@ -24,21 +29,42 @@ public class TrafficVolumeService implements ITrafficVolumeService{
 
     @Override
     @Scheduled(fixedDelay = 10000L)
-    public void getDataFromOdl() {
+    public void saveTrafficDifference() {
+        List<TrafficVolume> trafficVolumeList = getDataFromOdl();
+        for(TrafficVolume t : trafficVolumeList){
+            Long sumOut = trafficVolumeRepository.bytesOutSum(t.getPort());
+            Long sumIn = trafficVolumeRepository.bytesInSum(t.getPort());
+            if(sumOut == null)sumOut = 0L;
+            if(sumIn == null)sumIn = 0L;
+            t.setBytesOut(t.getBytesOut() - sumOut);
+            t.setBytesIn(t.getBytesIn() - sumIn);
+            trafficVolumeRepository.save(t);
+        }
+    }
 
+
+    @Override
+    public List<TrafficVolume> getDataFromOdl() {
+        List<TrafficVolume> trafficVolumeList = new LinkedList<>();
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getInterceptors().add(
                 new BasicAuthorizationInterceptor("admin", "admin"));
         Nodes node = restTemplate
                 .getForObject( INVENTORY_NODES_URL, Nodes.class);
         for(Node n : node.getNode()){
-            System.out.println(n.getId());
+            System.out.println(n.getId() + "  ||");
             for(NodeConnector nodeConnector : n.getNodeConnectorList()){
-                System.out.print(nodeConnector.getId());
-                System.out.print(nodeConnector.getStatistics().getBytes().getReceived()
-                        + " " + nodeConnector.getStatistics().getBytes().getTransmitted() );
-                System.out.println();
+                System.out.print(nodeConnector.getId() + " %%");
+                System.out.print(nodeConnector.getStatistics().getBytes().getReceived() + "||"  +  nodeConnector.getStatistics().getBytes().getTransmitted());
+                TrafficVolume trafficVolume = new TrafficVolume();
+                trafficVolume.setNode(n.getId());
+                trafficVolume.setPort(nodeConnector.getId());
+                trafficVolume.setBytesIn(Long.parseLong(nodeConnector.getStatistics().getBytes().getReceived()));
+                trafficVolume.setBytesOut(Long.parseLong(nodeConnector.getStatistics().getBytes().getTransmitted()));
+                trafficVolumeList.add(trafficVolume);
             }
         }
+        return trafficVolumeList;
     }
+
 }
