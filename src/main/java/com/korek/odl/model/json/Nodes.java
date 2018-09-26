@@ -4,22 +4,23 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.korek.odl.model.json.Node;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Nodes {
 
-   ArrayList<Node> node;
+    Node nodes;
 
     public Nodes(){}
-    public Nodes(ArrayList<Node> node) {
-        this.node = node;
+    public Nodes(Node nodes) {
+        this.nodes = nodes;
     }
 
-    public ArrayList<Node> getNode() {
-        return node;
+    public Node getNodes() {
+        return nodes;
     }
 
-    public void setNodes(ArrayList<Node> node) {
-        this.node = node;
+    public void setNodes(Node nodes) {
+        this.nodes = nodes;
     }
 }

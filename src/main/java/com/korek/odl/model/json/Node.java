@@ -8,25 +8,17 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Node {
 
-    private String id;
-    @JsonProperty(value = "node-connector")
-    private List<NodeConnector> nodeConnectorList;
+    @JsonProperty(value = "node")
+    List<NodeBody> node;
 
-    public Node(){}
-
-    public String getId() {
-        return id;
+    public Node() {
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public List<NodeBody> getNodeBodies() {
+        return node;
     }
 
-    public List<NodeConnector> getNodeConnectorList() {
-        return nodeConnectorList;
-    }
-
-    public void setNodeConnectorList(List<NodeConnector> nodeConnectorList) {
-        this.nodeConnectorList = nodeConnectorList;
+    public void setNodeBodies(List<NodeBody> nodeBodies) {
+        this.node = nodeBodies;
     }
 }
