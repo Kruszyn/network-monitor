@@ -1,9 +1,13 @@
 package com.korek.odl.model;
 
+import com.korek.odl.model.json.ChartData;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Table
@@ -13,9 +17,10 @@ public class TrafficVolume {
     @GeneratedValue
     private Long id;
     private String node;
-    private String port;
-    private Long bytesIn;
-    private Long bytesOut;
+    private String iface;
+    private Long bytesVolume;
+    private String type;
+    private String timestamp;
 
     public TrafficVolume() {}
 
@@ -31,27 +36,48 @@ public class TrafficVolume {
         this.node = node;
     }
 
-    public String getPort() {
-        return port;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setPort(String port) {
-        this.port = port;
+    public String getIface() {
+        return iface;
     }
 
-    public Long getBytesIn() {
-        return bytesIn;
+    public void setIface(String iface) {
+        this.iface = iface;
     }
 
-    public void setBytesIn(Long bytesIn) {
-        this.bytesIn = bytesIn;
+    public Long getBytesVolume() {
+        return bytesVolume;
     }
 
-    public Long getBytesOut() {
-        return bytesOut;
+    public void setBytesVolume(Long bytesVolume) {
+        this.bytesVolume = bytesVolume;
     }
 
-    public void setBytesOut(Long bytesOut) {
-        this.bytesOut = bytesOut;
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public static List<ChartData> convertToChartData(List<TrafficVolume> allByPort) {
+        List<ChartData> chartDataList = new LinkedList<>();
+        for (TrafficVolume t : allByPort) {
+            ChartData chartData = new ChartData(t.getBytesVolume().toString(), "2017-01-01");
+            chartDataList.add(chartData);
+        }
+        return chartDataList;
     }
 }

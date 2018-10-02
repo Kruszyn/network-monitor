@@ -7,8 +7,10 @@
 </head>
 <body>
     <div th:replace="layout :: navbar"></div>
-    <p th:text="${ONE}"></p>
+
     <div id="chart"></div>
+
+
 <div th:replace="layout :: scripts"></div>
 
 <script>
@@ -993,7 +995,9 @@
             target: '#chart',
             legend: ['Inbound','Outbound'],
             legend_target: '.legend',
-            area: [false, true]
+            area: [false, true],
+            y_extended_ticks: true,
+            x_accessor: 'date'
         });
 
     };
