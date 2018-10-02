@@ -27,7 +27,7 @@ public class TrafficVolumeService implements ITrafficVolumeService{
     private static final String INVENTORY_NODES_URL = "http://185.243.54.14:8080/restconf/operational/opendaylight-inventory:nodes/";
 
     @Override
-    @Scheduled(fixedDelay = 10000L)
+  //  @Scheduled(fixedDelay = 100000L)
     public void saveTrafficDifference() {
         List<TrafficVolume> trafficVolumeList = getDataFromOdl();
         for(TrafficVolume t : trafficVolumeList){
@@ -55,7 +55,7 @@ public class TrafficVolumeService implements ITrafficVolumeService{
             System.out.println(nodeBody.getId() + "  ||");
             for (NodeConnector nodeConnector : nodeBody.getNodeConnectorList()) {
                 System.out.print(nodeConnector.getId() + " %%");
-                System.out.print(nodeConnector.getStatistics().getBytes().getReceived() + "||" + nodeConnector.getStatistics().getBytes().getTransmitted());
+                System.out.print(nodeConnector.getStatistics().getBytes().getReceived() + "||" + nodeConnector.getStatistics().getBytes().getTransmitted() + "\n");
                 TrafficVolume trafficVolume = new TrafficVolume();
                 trafficVolume.setNode(nodeBody.getId());
                 trafficVolume.setPort(nodeConnector.getId());

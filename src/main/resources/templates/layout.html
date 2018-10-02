@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="site-head">
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/css/sidebar.css}" rel="stylesheet">
+    <link th:href="@{/css/metricsgraphics.css}" rel="stylesheet">
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar fixed-top bg-dark">
+    <a class="navbar-brand" href="#">Fixed top</a>
+</nav>
+
+
+<div th:fragment="scripts">
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/d3.min.js}"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/metricsgraphics.js}"></script>
+</div>
+</body>
+</html>
