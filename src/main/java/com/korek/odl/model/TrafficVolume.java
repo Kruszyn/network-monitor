@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -76,13 +77,11 @@ public class TrafficVolume {
         this.timestamp = timestamp;
     }
 
-    public static ChartData[] convertToChartData(List<TrafficVolume> allByPort) {
-        ChartData[] chartDataOut = new ChartData[allByPort.size()];
-        int i = 0;
+    public static List<ChartData> convertToChartData(List<TrafficVolume> allByPort) {
+        List<ChartData> chartDataOut = new ArrayList<>();
         for (TrafficVolume t : allByPort) {
             ZonedDateTime zdt = t.getTimestamp().atZone(ZoneId.of("GMT+02:00"));
-            chartDataOut[i] = new ChartData(zdt.toInstant().toEpochMilli(), t.getBytesVolume());
-            i++;
+            chartDataOut.add(new ChartData(zdt.toInstant().toEpochMilli(), t.getBytesVolume()));
         }
         return chartDataOut;
     }

@@ -84,10 +84,13 @@ public class TrafficVolumeService{
         return trafficVolumeList;
     }
 
-    public List<ChartData[]> findAllForInterface(String iface) {
-        List<ChartData[]> output = new ArrayList<>();
+    public List<List<ChartData>> findAllForInterface(String iface) {
+        List<List<ChartData>> output = new ArrayList<>();
         output.add(TrafficVolume.convertToChartData(trafficVolumeRepository.findAllByIfaceByAndByTrafficType(iface, "OUT")));
+        //REMOVE ELEM CONTAINING HISTORICAL DATA BEFORE APPLICATION STARTED DATA COLLECTION
+        output.get(0).remove(0);
         output.add(TrafficVolume.convertToChartData(trafficVolumeRepository.findAllByIfaceByAndByTrafficType(iface, "IN")));
+        output.get(1).remove(0);
         return output;
     }
 }

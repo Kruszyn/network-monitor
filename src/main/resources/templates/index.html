@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: site-head" >
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div th:replace="layout :: sidebar"></div>
+        <div th:replace="layout :: top-nav"></div>
+        <!-- page content -->
+        <div class="right_col" role="main">
+
+        </div>
+    </div>
+    <!-- /page content -->
+</div>
+<div th:replace="layout :: scripts"></div>
+<script>
+    window.onload = function(e){
+        $.ajax({
+            url: "chart?iface=openflow:4:2",
+            type: "GET",
+            success: function(data)
+            {
+                for (var j = 0; j < data.length; j++) {
+                    for (var i = 0; i < data[j].length; i++) {
+                        data[j][i].date = new Date(data[j][i].date);
+                    }
+                }
+
+                MG.data_graphic({
+                    title: "Openflow:3:1",
+                    data: data,
+                    //    y_scale_type: 'log',
+                    width: 700,
+                    height: 300,
+                    target: '#chart',
+                    legend: ['Inbound', 'Outbound'],
+                    legend_target: '.legend',
+                    missing_is_hidden: true,
+                    missing_is_hidden_accessor: 'dead',
+                    area: [false, true]
+                });
+            }
+        });
+
+        $.ajax({
+            url: "chart?iface=openflow:4:3",
+            type: "GET",
+            success: function(data)
+            {
+                for (var j = 0; j < data.length; j++) {
+                    for (var i = 0; i < data[j].length; i++) {
+                        data[j][i].date = new Date(data[j][i].date);
+                    }
+                }
+
+                MG.data_graphic({
+                    title: "Openflow:3:1",
+                    data: data,
+                    //    y_scale_type: 'log',
+                    width: 700,
+                    height: 300,
+                    target: '#chart2',
+                    legend: ['Inbound', 'Outbound'],
+                    legend_target: '.legend',
+                    missing_is_hidden: true,
+                    missing_is_hidden_accessor: 'dead',
+                    area: [false, true]
+                });
+            }
+        });
+    };
+</script>
+</body>
+</html>
