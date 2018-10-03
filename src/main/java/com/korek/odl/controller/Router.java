@@ -20,11 +20,7 @@ public class Router {
 
     @GetMapping("/chart")
     @ResponseBody
-    public List<ChartData> chartData(@RequestParam(name="iface") String iface){
-        List<ChartData> dataList = new LinkedList<>();
-        dataList = trafficVolumeService.findAllForInterface(iface);
-        return dataList;
+    public List<ChartData[]> chartData(@RequestParam(name="iface") String iface){
+        return trafficVolumeService.findAllForInterface(iface);
     }
-
-
 }

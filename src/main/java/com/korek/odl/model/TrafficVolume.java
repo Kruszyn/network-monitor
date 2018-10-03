@@ -6,6 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,8 +23,8 @@ public class TrafficVolume {
     private String node;
     private String iface;
     private Long bytesVolume;
-    private String type;
-    private String timestamp;
+    private String trafficType;
+    private LocalDateTime timestamp;
 
     public TrafficVolume() {}
 
@@ -56,28 +60,30 @@ public class TrafficVolume {
         this.bytesVolume = bytesVolume;
     }
 
-    public String getType() {
-        return type;
+    public String getTrafficType() {
+        return trafficType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTrafficType(String trafficType) {
+        this.trafficType = trafficType;
     }
 
-    public String getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
-    public static List<ChartData> convertToChartData(List<TrafficVolume> allByPort) {
-        List<ChartData> chartDataList = new LinkedList<>();
+    public static ChartData[] convertToChartData(List<TrafficVolume> allByPort) {
+        ChartData[] chartDataOut = new ChartData[allByPort.size()];
+        int i = 0;
         for (TrafficVolume t : allByPort) {
-            ChartData chartData = new ChartData(t.getBytesVolume().toString(), "2017-01-01");
-            chartDataList.add(chartData);
+            ZonedDateTime zdt = t.getTimestamp().atZone(ZoneId.of("GMT+02:00"));
+            chartDataOut[i] = new ChartData(zdt.toInstant().toEpochMilli(), t.getBytesVolume());
+            i++;
         }
-        return chartDataList;
+        return chartDataOut;
     }
 }

@@ -15,8 +15,13 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.Array;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,25 +38,23 @@ public class TrafficVolumeService{
     public void saveTrafficDifference() {
         List<TrafficVolume> trafficVolumeList = getDataFromOdl();
         for(TrafficVolume t : trafficVolumeList){
-            if(t.getType().equals("IN")){
+            if(t.getTrafficType().equals("IN")){
                 Long sumIn = trafficVolumeRepository.bytesSumByIface(t.getIface(), "IN");
                 if(sumIn == null)sumIn = 0L;
                 t.setBytesVolume(t.getBytesVolume()-sumIn);
-            } else if (t.getType().equals("OUT")){
+            } else if (t.getTrafficType().equals("OUT")){
                 Long sumOut = trafficVolumeRepository.bytesSumByIface(t.getIface(), "OUT");
                 if(sumOut == null)sumOut = 0L;
                 t.setBytesVolume(t.getBytesVolume()-sumOut);
             } else{
-               log.error("Traffic volume with wrong type: " + t.getType());
+               log.error("Traffic volume with wrong type: " + t.getTrafficType());
             }
             trafficVolumeRepository.save(t);
         }
     }
 
     private List<TrafficVolume> getDataFromOdl() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-        String localTime = LocalTime.now().format(dtf);
-
+        LocalDateTime localDateTime = LocalDateTime.now();
         List<TrafficVolume> trafficVolumeList = new LinkedList<>();
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getInterceptors().add(
@@ -70,8 +73,10 @@ public class TrafficVolumeService{
                 trafficVolumeOut.setIface(nodeConnector.getId());
                 trafficVolumeIn.setBytesVolume(Long.parseLong(nodeConnector.getStatistics().getBytes().getReceived()));
                 trafficVolumeOut.setBytesVolume(Long.parseLong(nodeConnector.getStatistics().getBytes().getTransmitted()));
-                trafficVolumeIn.setType("IN");
-                trafficVolumeOut.setType("OUT");
+                trafficVolumeIn.setTrafficType("IN");
+                trafficVolumeOut.setTrafficType("OUT");
+                trafficVolumeIn.setTimestamp(localDateTime);
+                trafficVolumeOut.setTimestamp(localDateTime);
                 trafficVolumeList.add(trafficVolumeIn);
                 trafficVolumeList.add(trafficVolumeOut);
             }
@@ -79,9 +84,10 @@ public class TrafficVolumeService{
         return trafficVolumeList;
     }
 
-    public List<ChartData> findAllForInterface(String iface) {
-        List<ChartData> chartDataList = TrafficVolume.convertToChartData(trafficVolumeRepository.findAllByPort(iface));
-
-        return chartDataList;
+    public List<ChartData[]> findAllForInterface(String iface) {
+        List<ChartData[]> output = new ArrayList<>();
+        output.add(TrafficVolume.convertToChartData(trafficVolumeRepository.findAllByIfaceByAndByTrafficType(iface, "OUT")));
+        output.add(TrafficVolume.convertToChartData(trafficVolumeRepository.findAllByIfaceByAndByTrafficType(iface, "IN")));
+        return output;
     }
 }

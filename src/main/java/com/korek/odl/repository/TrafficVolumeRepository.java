@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 public interface TrafficVolumeRepository extends JpaRepository<TrafficVolume,Long> {
 
-    @Query(value = "SELECT SUM(bytesVolume) FROM traffic_volume WHERE port = ?1 AND type=?2", nativeQuery = true)
-    Long bytesSumByIface(String port, String type);
-
-    List<TrafficVolume> findAllByPort(String port);
+    @Query(value = "SELECT SUM(bytes_volume) FROM traffic_volume WHERE iface = ?1 AND traffic_type=?2", nativeQuery = true)
+    Long bytesSumByIface(String iface, String trafficType);
+    @Query(value = "SELECT * FROM traffic_volume WHERE iface = ?1 AND traffic_type=?2", nativeQuery = true)
+    List<TrafficVolume> findAllByIfaceByAndByTrafficType(String iface, String trafficType);
 }
 
 
