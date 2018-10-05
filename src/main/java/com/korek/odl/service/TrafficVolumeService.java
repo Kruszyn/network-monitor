@@ -36,7 +36,7 @@ public class TrafficVolumeService{
     private static final Logger log = LoggerFactory.getLogger(OdlApplication.class);
     private static final String INVENTORY_NODES_URL = "http://185.243.54.14:8080/restconf/operational/opendaylight-inventory:nodes/";
 
-  //  @Scheduled(fixedDelay = 100000L)
+    @Scheduled(fixedDelay = 100000L)
     public void saveTrafficDifference() {
         List<TrafficVolume> trafficVolumeList = getDataFromOdl();
         for(TrafficVolume t : trafficVolumeList){
@@ -90,9 +90,9 @@ public class TrafficVolumeService{
         List<List<ChartData>> output = new ArrayList<>();
         output.add(TrafficVolume.convertToChartData(trafficVolumeRepository.findAllByIfaceByAndByTrafficType(iface, "OUT")));
         //REMOVE ELEM CONTAINING HISTORICAL DATA BEFORE APPLICATION STARTED DATA COLLECTION
-        output.get(0).remove(0);
+        if(!output.get(0).isEmpty())output.get(0).remove(0);
         output.add(TrafficVolume.convertToChartData(trafficVolumeRepository.findAllByIfaceByAndByTrafficType(iface, "IN")));
-        output.get(1).remove(0);
+        if(!output.get(1).isEmpty())output.get(1).remove(0);
         return output;
     }
 
@@ -100,5 +100,11 @@ public class TrafficVolumeService{
         List<String> nodeList = trafficVolumeRepository.findDistinctByNode();
         Collections.sort(nodeList);
         return nodeList;
+    }
+
+    public List<String> findDistinctByIfaceByNode(String node) {
+        List<String> ifaceList = trafficVolumeRepository.findDistinctByIfaceByNode(node);
+        Collections.sort(ifaceList);
+        return ifaceList;
     }
 }

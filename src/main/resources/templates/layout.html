@@ -42,7 +42,7 @@
                     </li>
                     <li><a><i class="fa fa-bar-chart-o"></i> Statystyki switchy <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li th:each="s : ${nodeList}"><a th:text=${s} th:href="@{'/switch/node?='+${s}}">Nazwa switcha 1s</a></li>
+                            <li th:each="s : ${nodeList}"><a th:text=${s} th:href="@{'/switch?node='+${s}}">Nazwa switcha 1s</a></li>
                         </ul>
                     </li>
                 </ul>

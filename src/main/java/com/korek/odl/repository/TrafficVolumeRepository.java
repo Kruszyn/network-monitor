@@ -17,6 +17,8 @@ public interface TrafficVolumeRepository extends JpaRepository<TrafficVolume,Lon
     List<TrafficVolume> findAllByIfaceByAndByTrafficType(String iface, String trafficType);
     @Query(value = "SELECT DISTINCT(node) FROM traffic_volume",nativeQuery = true)
     List<String> findDistinctByNode();
+    @Query(value = "SELECT DISTINCT(iface) FROM traffic_volume WHERE node=?1", nativeQuery = true)
+    List<String> findDistinctByIfaceByNode(String node);
 }
 
 
