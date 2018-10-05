@@ -42,11 +42,7 @@
                     </li>
                     <li><a><i class="fa fa-bar-chart-o"></i> Statystyki switchy <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a th:href="@{/switch}">Nazwa switcha 1s</a></li>
-                            <li><a href="chartjs2.html">Chart JS2</a></li>
-                            <li><a href="morisjs.html">Moris JS</a></li>
-                            <li><a href="echarts.html">ECharts</a></li>
-                            <li><a href="other_charts.html">Other Charts</a></li>
+                            <li th:each="s : ${nodeList}"><a th:text=${s} th:href="@{'/switch/node?='+${s}}">Nazwa switcha 1s</a></li>
                         </ul>
                     </li>
                 </ul>

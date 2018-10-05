@@ -10,6 +10,7 @@ import com.korek.odl.repository.TrafficVolumeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class TrafficVolumeService{
     private static final Logger log = LoggerFactory.getLogger(OdlApplication.class);
     private static final String INVENTORY_NODES_URL = "http://185.243.54.14:8080/restconf/operational/opendaylight-inventory:nodes/";
 
-    @Scheduled(fixedDelay = 100000L)
+  //  @Scheduled(fixedDelay = 100000L)
     public void saveTrafficDifference() {
         List<TrafficVolume> trafficVolumeList = getDataFromOdl();
         for(TrafficVolume t : trafficVolumeList){
@@ -92,5 +94,11 @@ public class TrafficVolumeService{
         output.add(TrafficVolume.convertToChartData(trafficVolumeRepository.findAllByIfaceByAndByTrafficType(iface, "IN")));
         output.get(1).remove(0);
         return output;
+    }
+
+    public List<String> findDistinctByNode() {
+        List<String> nodeList = trafficVolumeRepository.findDistinctByNode();
+        Collections.sort(nodeList);
+        return nodeList;
     }
 }
