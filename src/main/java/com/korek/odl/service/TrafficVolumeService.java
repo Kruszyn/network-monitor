@@ -36,7 +36,7 @@ public class TrafficVolumeService{
     private static final Logger log = LoggerFactory.getLogger(OdlApplication.class);
     private static final String INVENTORY_NODES_URL = "http://185.243.54.14:8080/restconf/operational/opendaylight-inventory:nodes/";
 
-    @Scheduled(fixedDelay = 100000L)
+    @Scheduled(cron = "0 0/5 * * * *")
     public void saveTrafficDifference() {
         List<TrafficVolume> trafficVolumeList = getDataFromOdl();
         for(TrafficVolume t : trafficVolumeList){
@@ -49,7 +49,7 @@ public class TrafficVolumeService{
                 if(sumOut == null)sumOut = 0L;
                 t.setBytesVolume(t.getBytesVolume()-sumOut);
             } else{
-               log.error("Traffic volume with wrong type: " + t.getTrafficType());
+                log.error("Traffic volume with wrong type: " + t.getTrafficType());
             }
             trafficVolumeRepository.save(t);
         }
@@ -59,12 +59,12 @@ public class TrafficVolumeService{
         LocalDateTime localDateTime = LocalDateTime.now();
         List<TrafficVolume> trafficVolumeList = new LinkedList<>();
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getInterceptors().add(
-                new BasicAuthorizationInterceptor("admin", "admin"));
-        Nodes nodes = restTemplate
-                .getForObject( INVENTORY_NODES_URL, Nodes.class);
+            restTemplate.getInterceptors().add(
+                    new BasicAuthorizationInterceptor("admin", "admin"));
+            Nodes nodes = restTemplate
+                    .getForObject( INVENTORY_NODES_URL, Nodes.class);
 
-        for(NodeBody nodeBody : nodes.getNodes().getNodeBodies()) {
+            for(NodeBody nodeBody : nodes.getNodes().getNodeBodies()) {
             for (NodeConnector nodeConnector : nodeBody.getNodeConnectorList()) {
 
                 TrafficVolume trafficVolumeIn = new TrafficVolume();

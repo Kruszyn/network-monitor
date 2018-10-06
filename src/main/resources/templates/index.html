@@ -10,70 +10,48 @@
     <div class="main_container">
         <div th:replace="layout :: sidebar"></div>
         <div th:replace="layout :: top-nav"></div>
-        <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" >
+            <div class="clearfix"></div>
+            <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
 
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h4>Stripped table </h4>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nazwa</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="inv, iter : ${inventoryList}">
+                                <th th:text="${iter.index +1}"></th>
+                                <td th:text="${inv.name}"></td>
+                                <td th:if="${inv.state}">
+                                    <button class="btn btn-danger btn-xs">DOWN  <i class="fa fa-exclamation-triangle"></i></button>
+                                </td>
+                                <td th:if="${!inv.state}">
+                                    <button class="btn btn-success btn-xs">UP <i class="fa fa-check"></i></button>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- /page content -->
 </div>
 <div th:replace="layout :: scripts"></div>
-<script>
-    window.onload = function(e){
-        $.ajax({
-            url: "chart?iface=openflow:4:2",
-            type: "GET",
-            success: function(data)
-            {
-                for (var j = 0; j < data.length; j++) {
-                    for (var i = 0; i < data[j].length; i++) {
-                        data[j][i].date = new Date(data[j][i].date);
-                    }
-                }
-
-                MG.data_graphic({
-                    title: "Openflow:3:1",
-                    data: data,
-                    //    y_scale_type: 'log',
-                    width: 700,
-                    height: 300,
-                    target: '#chart',
-                    legend: ['Inbound', 'Outbound'],
-                    legend_target: '.legend',
-                    missing_is_hidden: true,
-                    missing_is_hidden_accessor: 'dead',
-                    area: [false, true]
-                });
-            }
-        });
-
-        $.ajax({
-            url: "chart?iface=openflow:4:3",
-            type: "GET",
-            success: function(data)
-            {
-                for (var j = 0; j < data.length; j++) {
-                    for (var i = 0; i < data[j].length; i++) {
-                        data[j][i].date = new Date(data[j][i].date);
-                    }
-                }
-
-                MG.data_graphic({
-                    title: "Openflow:3:1",
-                    data: data,
-                    //    y_scale_type: 'log',
-                    width: 700,
-                    height: 300,
-                    target: '#chart2',
-                    legend: ['Inbound', 'Outbound'],
-                    legend_target: '.legend',
-                    missing_is_hidden: true,
-                    missing_is_hidden_accessor: 'dead',
-                    area: [false, true]
-                });
-            }
-        });
-    };
-</script>
 </body>
 </html>

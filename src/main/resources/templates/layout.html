@@ -16,7 +16,7 @@
 <div th:fragment="sidebar" class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-            <a th:href="@{/admin/index.html}" class="site_title"><i class="fa fa-signal"></i> <span style="font-size:19px">Network monitoring</span></a>
+            <a th:href="@{/index}" class="site_title"><i class="fa fa-signal"></i> <span style="font-size:19px">Network monitoring</span></a>
         </div>
 
         <div class="clearfix"></div>
@@ -35,12 +35,11 @@
                 <ul class="nav side-menu">
                     <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a th:href="@{/admin/index.html}">Main page <i class="fa fa-bullhorn"></i></a></li>
-                            <li><a th:href="@{/admin/switch.html}">Przegląd switchy</a></li>
-                            <li><a href="index3.html"></a></li>
+                            <li><a th:href="@{index}">Strona główna</a></li>
+                            <li><a th:href="@{switch}">Przegląd switchy</a></li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-bar-chart-o"></i> Statystyki switchy <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-bar-chart-o"></i> Statystyki węzłów <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li th:each="s : ${nodeList}"><a th:text=${s} th:href="@{'/switch?node='+${s}}">Nazwa switcha 1s</a></li>
                         </ul>
