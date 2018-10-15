@@ -10,14 +10,14 @@ object at the current folder level. This technique has some limitations, see
 
 __Arguments__
 
-name               | type   | description
+name               | level   | description
 -------------------|--------|------------
 data               | String/Array of bytes/ArrayBuffer/Uint8Array/Buffer | the zip file
 options            | object | the options to load the zip file
 
 Content of `options` :
 
-name                          | type    | default | description
+name                          | level    | default | description
 ------------------------------|---------|---------|------------
 options.base64                | boolean | false   | set to `true` if the data is base64 encoded, `false` for binary.
 options.checkCRC32            | boolean | false   | set to `true` if the read data should be checked against its CRC32.

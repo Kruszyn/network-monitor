@@ -8,7 +8,7 @@ __Description__ : Delete a file or folder (recursively).
 
 __Arguments__
 
-name | type   | description
+name | level   | description
 -----|--------|------------
 name | string | the name of the file/folder to delete.
 

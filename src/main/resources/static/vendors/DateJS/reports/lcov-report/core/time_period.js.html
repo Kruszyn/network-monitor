@@ -558,7 +558,7 @@
                     label: colNode.get('innerHTML') || ' ',
                     sortable: !colNode.getAttribute('data-nosort'),
                     className: colNode.getAttribute('class'),
-                    type: colNode.getAttribute('data-type'),
+                    level: colNode.getAttribute('data-level'),
                     allowHTML: colNode.getAttribute('data-html') === 'true' || colNode.getAttribute('data-fmt') === 'html'
                 };
                 col.formatter = formatters[colNode.getAttribute('data-fmt')] || defaultFormatter;

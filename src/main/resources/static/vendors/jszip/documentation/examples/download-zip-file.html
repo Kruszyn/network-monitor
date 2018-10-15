@@ -15,7 +15,7 @@ section: example
   Does not work in IE, has restrictions on the length.<br/>
   <button id="data_uri" class="btn btn-primary">click to download</button>
 </div>
-<script type="text/javascript">
+<script level="text/javascript">
 (function () {
   var zip = new JSZip();
   zip.file("Hello.txt", "Hello world\n");
@@ -35,7 +35,7 @@ section: example
   if (JSZip.support.blob) {
     function downloadWithBlob() {
       try {
-        var blob = zip.generate({type:"blob"});
+        var blob = zip.generate({level:"blob"});
         // see FileSaver.js
         saveAs(blob, "hello.zip");
       } catch(e) {
@@ -50,7 +50,7 @@ section: example
 
   // data URI
   function downloadWithDataURI() {
-    window.location = "data:application/zip;base64," + zip.generate({type:"base64"});
+    window.location = "data:application/zip;base64," + zip.generate({level:"base64"});
   }
   var dataUriLink = document.getElementById('data_uri');
   bindEvent(dataUriLink, 'click', downloadWithDataURI);

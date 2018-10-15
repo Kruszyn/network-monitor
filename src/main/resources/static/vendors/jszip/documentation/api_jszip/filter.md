@@ -8,13 +8,13 @@ __Description__ : Filter nested files/folders with the specified function.
 
 __Arguments__
 
-name      | type     | description
+name      | level     | description
 ----------|----------|------------
 predicate | function | the predicate to use.
 
 The predicate has the following signature : `function (relativePath, file) {...}` :
 
-name         | type      | description
+name         | level      | description
 -------------|-----------|------------
 relativePath | string    | the filename and its path, reliatively to the current folder.
 file         | ZipObject | the file being tested. See [ZipObject]({{site.baseurl}}/documentation/api_zipobject.html).

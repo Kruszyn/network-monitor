@@ -10,7 +10,7 @@ The regex is tested against the relative path.
 
 __Arguments__
 
-name  | type   | description
+name  | level   | description
 ------|--------|------------
 regex | RegExp | the regex to use.
 

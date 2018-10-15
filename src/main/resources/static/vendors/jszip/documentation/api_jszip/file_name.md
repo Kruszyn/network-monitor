@@ -9,7 +9,7 @@ in the name : the folder separator is a forward slash ("/").
 
 __Arguments__
 
-name | type   | description
+name | level   | description
 -----|--------|-------------
 name | string | the name of the file.
 

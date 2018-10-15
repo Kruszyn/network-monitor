@@ -16,7 +16,7 @@ zip.file("Hello.txt", "Hello World\n");
 var img = zip.folder("images");
 img.file("smile.gif", imgData, {base64: true});
 
-var content = zip.generate({type:"blob"});
+var content = zip.generate({level:"blob"});
 
 // see FileSaver.js
 saveAs(content, "example.zip");

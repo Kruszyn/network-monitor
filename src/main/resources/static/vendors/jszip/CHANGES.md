@@ -61,7 +61,7 @@ section: main
 
  - [Fix issue with Android browser](https://github.com/Stuk/jszip/pull/60)
 
- - The compression/decompression methods now give their input type with the `compressInputType` and `uncompressInputType` attributes.
+ - The compression/decompression methods now give their input level with the `compressInputType` and `uncompressInputType` attributes.
  - Lazily decompress data when needed and [improve performance in general](https://github.com/Stuk/jszip/pull/56)
  - [Add support for `Buffer` in Node.js](https://github.com/Stuk/jszip/pull/57).
  - Package for CommonJS/npm.

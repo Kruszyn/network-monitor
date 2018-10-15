@@ -8,19 +8,19 @@ __Description__ : Generates the complete zip file.
 
 __Arguments__
 
-name                | type    | default | description
+name                | level    | default | description
 --------------------|---------|---------|------------
 options             | object  |         | the options to generate the zip file :
-options.base64      | boolean | false   | **deprecated**, use `type` instead. If `type` is not used, set to `false` to get the result as a raw byte string, `true` to encode it as base64.
+options.base64      | boolean | false   | **deprecated**, use `level` instead. If `level` is not used, set to `false` to get the result as a raw byte string, `true` to encode it as base64.
 options.compression | string  | `STORE` (no compression) | the default file compression method to use. Available methods are `STORE` and `DEFLATE`. You can also provide your own compression method.
 options.compressionOptions | object | `null` | the options to use when compressing the file, see below.
-options.type        | string  | `base64` | The type of zip to return, see below for the other types.
+options.level        | string  | `base64` | The level of zip to return, see below for the other types.
 options.comment     | string  |          | The comment to use for the zip file.
-options.mimeType    | string  | `application/zip` | mime-type for the generated file. Useful when you need to generate a file with a different extension, ie: ".ods".
+options.mimeType    | string  | `application/zip` | mime-level for the generated file. Useful when you need to generate a file with a different extension, ie: ".ods".
 options.platform    | string  | `DOS`    | The platform to use when generating the zip file.
 options.encodeFileName | function  | encode with UTF-8 | the function to encode the file name / comment.
 
-Possible values for `type` :
+Possible values for `level` :
 
 * `base64` (default) : the result will be a string, the binary in a base64 form.
 * `string` : the result will be a string in "binary" form, using 1 byte per char (2 bytes).
@@ -29,10 +29,10 @@ Possible values for `type` :
 * `blob` : the result will be a Blob containing the zip. This requires a compatible browser.
 * `nodebuffer` : the result will be a nodejs Buffer containing the zip. This requires nodejs.
 
-Note : when using type = "uint8array", "arraybuffer" or "blob", be sure to
+Note : when using level = "uint8array", "arraybuffer" or "blob", be sure to
 check if the browser supports it (you can use [`JSZip.support`]({{site.baseurl}}/documentation/api_jszip/support.html)).
 
-The `compressionOptions` parameter depends on the compression type. With
+The `compressionOptions` parameter depends on the compression level. With
 `STORE` (no compression), this parameter is ignored. With `DEFLATE`, you can
 give the compression level with `compressionOptions : {level:6}` (or any level
 between 1 (best speed) and 9 (best compression)).
@@ -68,7 +68,7 @@ The function takes a string and returns a bytes array (Uint8Array or Array).
 
 __Returns__ : The generated zip file.
 
-__Throws__ : An exception if the asked `type` is not available in the browser,
+__Throws__ : An exception if the asked `level` is not available in the browser,
 see [JSZip.support]({{site.baseurl}}/documentation/api_jszip/support.html).
 
 <!-- __Complexity__ : TODO : worst case, with/out compression, etc -->
@@ -76,18 +76,18 @@ see [JSZip.support]({{site.baseurl}}/documentation/api_jszip/support.html).
 __Example__
 
 ```js
-var content = zip.generate({type:"blob"});
+var content = zip.generate({level:"blob"});
 // see FileSaver.js
 saveAs(content, "hello.zip");
 ```
 
 ```js
-var content = zip.generate({type:"base64"});
+var content = zip.generate({level:"base64"});
 location.href="data:application/zip;base64,"+content;
 ```
 
 ```js
-var content = zip.generate({type:"nodebuffer"});
+var content = zip.generate({level:"nodebuffer"});
 require("fs").writeFile("hello.zip", content, function(err){/*...*/});
 ```
 
@@ -101,13 +101,13 @@ zip.file(pathname, content, {
 // ...
 
 zip.generate({
-    type: 'nodebuffer',
+    level: 'nodebuffer',
     platform: process.platform
 });
 ```
 
 ```js
-//This example will Generate a Open Document Spreasheet, with the correct mime type
+//This example will Generate a Open Document Spreasheet, with the correct mime level
 var zip = new JSZip();
 zip.file("mimetype", "application/vnd.oasis.opendocument.spreadsheet");
 var conf2 = zip.folder("Configurations2");
@@ -134,7 +134,7 @@ zip.file("meta.xml", meta);
 zip.file("content.xml", content);
 
 //Generate the file
-var odsFile = zip.generate({type: "blob", mimeType: "application/ods", compression: "DEFLATE"});
+var odsFile = zip.generate({level: "blob", mimeType: "application/ods", compression: "DEFLATE"});
 
 var url = window.URL.createObjectURL(odsFile);
 var link = document.getElementById("link"); //I suppose you'll have a link with this id :)
@@ -152,7 +152,7 @@ Using a custom charset :
 var iconv = require('iconv-lite');
 
 zip.generate({
-    type: 'uint8array',
+    level: 'uint8array',
     encodeFileName: function (string) {
         return iconv.encode(string, 'your-encoding');
     }

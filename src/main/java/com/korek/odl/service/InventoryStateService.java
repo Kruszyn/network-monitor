@@ -1,5 +1,6 @@
 package com.korek.odl.service;
 
+import com.korek.odl.model.Alert;
 import com.korek.odl.model.InventoryState;
 import com.korek.odl.model.json.NodeBody;
 import com.korek.odl.model.json.NodeConnector;
@@ -11,6 +12,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,6 +22,8 @@ public class InventoryStateService {
 
     @Autowired
     private InventoryStateRepository inventoryStateRepository;
+    @Autowired
+    private AlertService alertService;
     //TODO przenieść do pliku properties
     private static final String INVENTORY_NODES_URL = "http://185.243.54.14:8080/restconf/operational/opendaylight-inventory:nodes/";
 
@@ -50,13 +55,26 @@ public class InventoryStateService {
                 iState.setName(nodeConnector.getId());
                 iState.setState(Boolean.parseBoolean(nodeConnector.getInventoryState().getLink()));
                 iState.setType("LINK");
+                if(iState.getState() && !iState.getName().endsWith("LOCAL"))addAlert(iState);
                 inventoryStateList.add(iState);
             }
         }
+        inventoryStateList.removeIf(o -> o.getName().trim().endsWith("LOCAL"));
         return inventoryStateList;
     }
 
+    private void addAlert(InventoryState iState) {
+        Alert alert = new Alert();
+        alert.setInventoryName(iState.getName());
+        alert.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        alert.setLevel("ERROR");
+        alert.setMsg("Link down");
+        alertService.addAlert(alert);
+    }
+
     public List<InventoryState> findAll() {
-        return inventoryStateRepository.findAll();
+        List<InventoryState> inventoryStateList = inventoryStateRepository.findAll();
+        inventoryStateList.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+        return inventoryStateList;
     }
 }

@@ -26,7 +26,7 @@ class JQVMap:
 
   def getJSCode(self):
     map = {"paths": self.paths, "width": self.width, "height": self.height, "insets": self.insets, "projection": self.projection}
-    header = "/** JQVMap " + self.projection['type'] + " map for " + self.name + "  */"
+    header = "/** JQVMap " + self.projection['level'] + " map for " + self.name + "  */"
     js = "jQuery.fn.vectorMap('addMap', '" + self.name + "'," + json.dumps(map) + ");"
     return  header + "\n" + js
 
@@ -146,7 +146,7 @@ class Converter:
       "width": self.width,
       "height": insetHeight
     })
-    self.map.projection = {"type": self.projection, "centralMeridian": float(self.longitude0)}
+    self.map.projection = {"level": self.projection, "centralMeridian": float(self.longitude0)}
 
     open(output_file, 'w').write( self.map.getJSCode() )
 
@@ -253,7 +253,7 @@ class DataSource:
       field = self.layer_dfn.GetFieldDefn( field_index )
       self.fields.append({
         'name': field.GetName(),
-        'type': field.GetType(),
+        'level': field.GetType(),
         'width': field.GetWidth(),
         'precision': field.GetPrecision()
       })
@@ -308,7 +308,7 @@ class DataSource:
                                 srs = self.layer.GetSpatialRef() )
 
     for field in self.fields:
-      fd = ogr.FieldDefn( str(field['name']), field['type'] )
+      fd = ogr.FieldDefn( str(field['name']), field['level'] )
       fd.SetWidth( field['width'] )
       if 'precision' in field:
         fd.SetPrecision( field['precision'] )

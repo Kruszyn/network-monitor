@@ -9,7 +9,7 @@ modify them. You can also import an existing zip file or generate one.
 
 ### Attributes
 
-attribute name       | type        | description
+attribute name       | level        | description
 ---------------------|-------------|-------------
 `files`              | object      | the [ZipObject]({{site.baseurl}}/documentation/api_zipobject.html)s inside the zip with the name as key. See [file(name)]({{site.baseurl}}/documentation/api_jszip/file_name.html).
 `comment`            | string      | the comment of the zip file.

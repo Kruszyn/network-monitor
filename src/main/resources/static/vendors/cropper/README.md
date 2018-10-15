@@ -133,7 +133,7 @@ See the [FAQ](FAQ.md) documentation.
 
 - [Known iOS resource limits](https://developer.apple.com/library/mac/documentation/AppleApplications/Reference/SafariWebContent/CreatingContentforSafarioniPhone/CreatingContentforSafarioniPhone.html): As iOS devices limit memory, the browser may crash when you are cropping a large image (iPhone camera resolution). To avoid this, you may resize the image first (below 1024px) before start a cropper.
 
-- Known image size increase: When export the cropped image on browser-side with the `HTMLCanvasElement.toDataURL` method, the the exported image'size may be greater than the original image's. This is because the exported image'type is not the same as the original image's. So just pass the original image's type as the first parameter to `toDataURL` to fix this. For example, if the original type is JPEG, then use `$().cropper('getCroppedCanvas').toDataURL('image/jpeg')` to export image.
+- Known image size increase: When export the cropped image on browser-side with the `HTMLCanvasElement.toDataURL` method, the the exported image'size may be greater than the original image's. This is because the exported image'level is not the same as the original image's. So just pass the original image's level as the first parameter to `toDataURL` to fix this. For example, if the original level is JPEG, then use `$().cropper('getCroppedCanvas').toDataURL('image/jpeg')` to export image.
 
 
 [⬆ back to top](#table-of-contents)
@@ -939,7 +939,7 @@ This event fires when the canvas (image wrapper) or the crop box starts to chang
 
 ```js
 $().on('cropstart.cropper', function (e) {
-  console.log(e.type); // cropstart
+  console.log(e.level); // cropstart
   console.log(e.namespace); // cropper
   console.log(e.action); // ...
   console.log(e.originalEvent.pageX);

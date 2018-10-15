@@ -10,7 +10,7 @@ will be automatically decompressed/converted first.
 
 ### Attributes
 
-attribute name              | type        | description
+attribute name              | level        | description
 ----------------------------|-------------|-------------
 `name`                      | string      | the absolute path of the file
 `dir`                       | boolean     | true if this is a directory
@@ -28,7 +28,7 @@ attribute name              | type        | description
 
 ### Getters
 
-method            | return type   | description
+method            | return level   | description
 ------------------|---------------|-------------
 `asText()`        | string        | the content as an unicode string.
 `asBinary()`      | string        | the content as binary string.

@@ -36,7 +36,7 @@
                     <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a th:href="@{index}">Strona główna</a></li>
-                            <li><a th:href="@{switch}">Przegląd switchy</a></li>
+                            <li><a th:href="@{alerts}">Alarmy</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-bar-chart-o"></i> Statystyki węzłów <span class="fa fa-chevron-down"></span></a>
@@ -67,7 +67,6 @@
                         <li><a href="javascript:;"> Profile</a></li>
                         <li>
                             <a href="javascript:;">
-                                <span class="badge bg-red pull-right">50%</span>
                                 <span>Settings</span>
                             </a>
                         </li>
@@ -76,10 +75,10 @@
                     </ul>
                 </li>
 
-                <li role="presentation" class="dropdown">
+                <li role="presentation" class="dropdown" id="alertBell">
                     <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-bell"></i>
-                        <span class="badge bg-green">6</span>
+                        <span class="badge bg-red" id="alertCount"></span>
                     </a>
                     <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                         <li>
@@ -119,6 +118,24 @@
     <!--GENTELELLA-->
     <script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
     <script th:src="@{/js/custom.min.js}"></script>
+    <script>
+     function alertsCount(ev) {
+        $.ajax({
+            url: "alertsCount",
+            level: "GET",
+            success: function(data)
+            {
+                $("#alertCount").text(data.toString());
+                $("#alertCountDashboard").text(data.toString());
+            }
+        });
+     };
+     window.onload = alertsCount;
+
+     $("#alertBell").onclick = function (ev) {
+         console.log(0);
+     };
+    </script>
 </div>
 </body>
 </html>

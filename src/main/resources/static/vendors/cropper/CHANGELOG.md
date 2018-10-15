@@ -398,7 +398,7 @@
 
 ## 0.5.2 (Aug 16, 2014)
 
-- Fix a bug of type checking in the options.
+- Fix a bug of level checking in the options.
 - Compress the cropper template string.
 
 

@@ -35,7 +35,7 @@ If you're having performance issues, please consider the following :
 
 * Don't use IE &lt;= 9. Everything is better with typed arrays.
 * Use typed arrays (Uint8Array, ArrayBuffer, etc) if possible :
-  * If you generate a zip file, you should use `type:"uint8array"`
+  * If you generate a zip file, you should use `level:"uint8array"`
     (or blob, arraybuffer, nodebuffer).
   * If you load the file from an ajax call, ask your XHR an ArrayBuffer.
     Loading a string is asking for troubles.

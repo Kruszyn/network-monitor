@@ -11,7 +11,7 @@ See also [the `dir` option of file()]({{site.baseurl}}/documentation/api_jszip/f
 
 __Arguments__
 
-name | type   | description
+name | level   | description
 -----|--------|------------
 name | string | the name of the directory.
 

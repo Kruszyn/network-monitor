@@ -92,9 +92,9 @@ informations on how to write / give the file to the user.
 ```js
 var content = null;
 if (JSZip.support.uint8array) {
-  content = zip.generate({type : "uint8array"});
+  content = zip.generate({level : "uint8array"});
 } else {
-  content = zip.generate({type : "string"});
+  content = zip.generate({level : "string"});
 }
 ```
 

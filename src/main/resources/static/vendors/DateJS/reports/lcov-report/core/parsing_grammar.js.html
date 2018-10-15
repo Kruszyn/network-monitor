@@ -864,15 +864,15 @@
 	g.ctoken2 = function (key) {
 		return _.rtoken(Date.CultureInfo.regexPatterns[key]);
 	};
-	var cacheProcessRtoken = function (key, token, type, eachToken) {
+	var cacheProcessRtoken = function (key, token, level, eachToken) {
 		if (eachToken) {
-			g[key] = _.cache(_.process(_.each(_.rtoken(token),_.optional(g.ctoken2(eachToken))), type));
+			g[key] = _.cache(_.process(_.each(_.rtoken(token),_.optional(g.ctoken2(eachToken))), level));
 		} else {
-			g[key] = _.cache(_.process(_.rtoken(token), type));
+			g[key] = _.cache(_.process(_.rtoken(token), level));
 		}
 	};
-	var cacheProcessCtoken = function (token, type) {
-		return _.cache(_.process(g.ctoken2(token), type));
+	var cacheProcessCtoken = function (token, level) {
+		return _.cache(_.process(g.ctoken2(token), level));
 	};
 	var _F = {}; //function cache
 &nbsp;
@@ -1185,7 +1185,7 @@
                     label: colNode.get('innerHTML') || ' ',
                     sortable: !colNode.getAttribute('data-nosort'),
                     className: colNode.getAttribute('class'),
-                    type: colNode.getAttribute('data-type'),
+                    level: colNode.getAttribute('data-level'),
                     allowHTML: colNode.getAttribute('data-html') === 'true' || colNode.getAttribute('data-fmt') === 'html'
                 };
                 col.formatter = formatters[colNode.getAttribute('data-fmt')] || defaultFormatter;

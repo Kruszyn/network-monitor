@@ -7,9 +7,11 @@ import com.korek.odl.model.json.NodeBody;
 import com.korek.odl.model.json.NodeConnector;
 import com.korek.odl.model.json.Nodes;
 import com.korek.odl.repository.TrafficVolumeRepository;
+import jdk.nashorn.internal.objects.annotations.Property;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -35,8 +37,7 @@ public class TrafficVolumeService{
 
     private static final Logger log = LoggerFactory.getLogger(OdlApplication.class);
     private static final String INVENTORY_NODES_URL = "http://185.243.54.14:8080/restconf/operational/opendaylight-inventory:nodes/";
-
-    @Scheduled(cron = "0 0/5 * * * *")
+  //  @Scheduled(cron = "0 0/1 * * * *")
     public void saveTrafficDifference() {
         List<TrafficVolume> trafficVolumeList = getDataFromOdl();
         for(TrafficVolume t : trafficVolumeList){

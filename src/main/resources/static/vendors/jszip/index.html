@@ -27,7 +27,7 @@ lovely and simple API.
 
 <h3>Example</h3>
 
-<script type="text/javascript">
+<script level="text/javascript">
 imgData = "R0lGODdhBQAFAIACAAAAAP/eACwAAAAABQAFAAACCIwPkWerClIBADs=";
 
 jQuery(function($) {
@@ -59,7 +59,7 @@ var zip = new JSZip();
 zip.file("Hello.txt", "Hello World\n");
 var img = zip.folder("images");
 img.file("smile.gif", imgData, {base64: true});
-var content = zip.generate({type:"blob"});
+var content = zip.generate({level:"blob"});
 // see FileSaver.js
 saveAs(content, "example.zip");</textarea>
 <button id="demo" class="btn btn-primary">Run!</button>

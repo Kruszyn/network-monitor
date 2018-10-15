@@ -48,13 +48,13 @@
 </div>
 <div th:replace="layout :: scripts"></div>
 <script>
-    window.onload = function(e){
+    function charts(e){
         $('.ifChart').each(function(index, obj) {
             var ifName = $(this).attr('value');
-            console.log(ifName);
+
             $.ajax({
                 url: "chart?iface=" + ifName,
-                type: "GET",
+                level: "GET",
                 success: function(data)
                 {
                     for (var j = 0; j < data.length; j++) {
@@ -80,6 +80,11 @@
             });
         });
     };
+    function start(){
+        alertsCount();
+        charts();
+    }
+    window.onload =start;
 </script>
 </body>
 </html>

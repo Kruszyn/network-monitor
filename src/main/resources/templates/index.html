@@ -13,45 +13,73 @@
         <div class="right_col" role="main" >
             <div class="clearfix"></div>
             <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12">
 
+               <a th:href="@{/alerts}">
+               <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div style="background: #ff5849;font-style: red;" class="tile-stats">
+                        <div style="color:white;" class="icon"><i class="fa fa-warning"></i></div>
+                        <div style="color:white;" class="count" id="alertCountDashboard"></div>
+                        <h3  style="color:white;">Alarmy</h3>
+                        <p></p>
+                    </div>
+                </div>
+                </a>
+                <a th:href="@{/warnings}">
+                <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div style="background: #ffad2a;" class="tile-stats">
+                        <div style="color:white;" class="icon"><i class="fa fa-exclamation"></i></div>
+                        <div style="color:white;" class="count">11</div>
+                        <h3 style="color:white;">Ostrzeżenia</h3>
+                        <p></p>
+                    </div>
+                </div>
+                </a>
+                <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div style="background: #0b97c4;" class="tile-stats">
+                        <div style="color:white;" class="icon"><i class="fa fa-tasks"></i></div>
+                        <div style="color:white;" class="count" th:text="${nodeCount}">0</div>
+                        <h3  style="color:white;">Monitorowane węzły</h3>
+                        <p></p>
+                    </div>
+                </div>
+            <div class="row">
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nazwa interfejsu</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="inv, iter : ${inventoryList}">
+                                    <th th:text="${iter.index +1}"></th>
+                                    <td th:text="${inv.name}"></td>
+                                    <td th:if="${inv.state}">
+                                        <button class="btn btn-danger btn-xs">DOWN  <i class="fa fa-exclamation-triangle"></i></button>
+                                    </td>
+                                    <td th:if="${!inv.state}">
+                                        <button class="btn btn-success btn-xs">UP <i class="fa fa-check"></i></button>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
-                    <div class="x_title">
-                        <h4>Stripped table </h4>
-
-                        <div class="clearfix"></div>
-                    </div>
                     <div class="x_content">
-
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Nazwa</th>
-                                <th>Status</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="inv, iter : ${inventoryList}">
-                                <th th:text="${iter.index +1}"></th>
-                                <td th:text="${inv.name}"></td>
-                                <td th:if="${inv.state}">
-                                    <button class="btn btn-danger btn-xs">DOWN  <i class="fa fa-exclamation-triangle"></i></button>
-                                </td>
-                                <td th:if="${!inv.state}">
-                                    <button class="btn btn-success btn-xs">UP <i class="fa fa-check"></i></button>
-                                </td>
-                            </tr>
-                        </table>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div th:replace="layout :: scripts"></div>
+    <div th:replace="layout :: scripts"></div>
 </body>
 </html>

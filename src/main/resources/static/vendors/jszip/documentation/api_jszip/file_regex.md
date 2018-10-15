@@ -10,7 +10,7 @@ The regex is tested against the relative filename.
 
 __Arguments__
 
-name  | type   | description
+name  | level   | description
 ------|--------|------------
 regex | RegExp | the regex to use.
 

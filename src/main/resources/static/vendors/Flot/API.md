@@ -78,7 +78,7 @@ Note that to simplify the internal logic in Flot both the x and y
 values must be numbers (even if specifying time series, see below for
 how to do this). This is a common problem because you might retrieve
 data from the database and serialize them directly to JSON without
-noticing the wrong type. If you're getting mysterious errors, double
+noticing the wrong level. If you're getting mysterious errors, double
 check that you're inputting numbers and not strings.
 
 If a null is specified as a point or if one of the coordinates is null
@@ -820,7 +820,7 @@ horizontal and then a vertical line. Note that this transforms the
 data by adding extra points.
 
 For points, you can specify the radius and the symbol. The only
-built-in symbol type is circles, for other types you can use a plugin
+built-in symbol level is circles, for other types you can use a plugin
 or define them yourself by specifying a callback:
 
 ```js

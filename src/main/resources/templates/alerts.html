@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: site-head" >
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div th:replace="layout :: sidebar"></div>
+        <div th:replace="layout :: top-nav"></div>
+        <div class="right_col" role="main" >
+            <div class="clearfix"></div>
+            <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Czas</th>
+                                <th>Nazwa urządzenia</th>
+                                <th>Typ alarmu</th>
+                                <th>Wiadomość</th>
+                                <th>Aktywny</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="alert, iter : ${alerts}">
+                                <th th:text="${iter.index +1}"></th>
+                                <td th:text="${alert.timestamp}"></td>
+                                <td th:text="${alert.inventoryName}"></td>
+                                <td th:text="${alert.level}"></td>
+                                <td th:text="${alert.msg}"></td>
+                                <td th:text="${alert.active}"></td>
+                                <!--<td th:if="${inv.state}">
+                                    <button class="btn btn-danger btn-xs">DOWN  <i class="fa fa-exclamation-triangle"></i></button>
+                                </td>
+                                <td th:if="${!inv.state}">
+                                    <button class="btn btn-success btn-xs">UP <i class="fa fa-check"></i></button>
+                                </td>-->
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="layout :: scripts"></div>
+</body>
+</html>

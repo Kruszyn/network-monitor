@@ -517,7 +517,7 @@ also surfaced, if your graphs are slow in IE, you may want to give it a spin:
    of possibly awkward tick steps. (sponsored by Flight Data Services,
    www.flightdataservices.com)
 
- - Support for customizing the point type through a callback when plotting
+ - Support for customizing the point level through a callback when plotting
    points and new symbol plugin with some predefined point types. (sponsored
    by Utility Data Corporation)
 
@@ -783,7 +783,7 @@ in event handling speed.
  - Fixed a bug with passing in data from getData to setData when the secondary
    axes are used. (reported by nperelman, issue 65)
 
- - Fixed so that it is possible to turn lines off when no other chart type is
+ - Fixed so that it is possible to turn lines off when no other chart level is
    shown (based on problem reported by Glenn Vanderburg), and fixed so that
    setting lineWidth to 0 also hides the shadow. (based on problem reported by
    Sergio Nunes)

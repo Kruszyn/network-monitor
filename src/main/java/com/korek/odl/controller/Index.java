@@ -23,9 +23,12 @@ public class Index {
 
     @GetMapping(value = {"/","/index"})
     public String index(Model model){
-        model.addAttribute("nodeList", trafficVolumeService.findDistinctByNode());
+        List<String> nodeList = trafficVolumeService.findDistinctByNode();
+        model.addAttribute("nodeList", nodeList);
+        model.addAttribute("nodeCount", nodeList.size());
         model.addAttribute("inventoryList", inventoryStateService.findAll());
-        return "/index";
+
+        return "index";
     }
 
 }

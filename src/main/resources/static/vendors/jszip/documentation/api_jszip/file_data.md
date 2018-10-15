@@ -8,7 +8,7 @@ __Description__ : Add (or update) a file to the zip file.
 
 __Arguments__
 
-name                | type    | description
+name                | level    | description
 --------------------|---------|------------
 name                | string  | the name of the file. You can specify folders in the name : the folder separator is a forward slash ("/").
 data                | String/ArrayBuffer/Uint8Array/Buffer | the content of the file.
@@ -16,7 +16,7 @@ options             | object  | the options.
 
 Content of `options` :
 
-name        | type    | default | description
+name        | level    | default | description
 ------------|---------|---------|------------
 base64      | boolean | `false` | set to `true` if the data is base64 encoded. For example image data from a `<canvas>` element. Plain text and HTML do not need this option.
 binary      | boolean | `false` | set to `true` if the data should be treated as raw content, `false` if this is a text. If base64 is used, this defaults to `true`, if the data is not a string, this will be set to `true`.

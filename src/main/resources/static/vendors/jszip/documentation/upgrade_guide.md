@@ -37,7 +37,7 @@ zip.file("test.txt").dir
 * `JSZipBase64` has been renamed to `JSZip.base64`.
 * The `data` attribute doesn't exist anymore :
   use the getters `asText()`, `asBinary()`, etc
-* The compression/decompression methods now give their input type with the
+* The compression/decompression methods now give their input level with the
   `compressInputType` and `uncompressInputType` attributes.
 
 Example for the data attribute :
