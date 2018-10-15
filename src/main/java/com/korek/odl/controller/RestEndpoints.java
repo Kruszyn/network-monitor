@@ -28,6 +28,6 @@ public class RestEndpoints {
     @GetMapping("/alertsCount")
     @ResponseBody
     public Integer alertsCount(){
-        return alertService.countAllActive();
+        return alertService.findAlerts().length;
     }
 }

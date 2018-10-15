@@ -11,8 +11,8 @@ public class AlertService {
     @Autowired
     private AlertRepository alertRepository;
 
-    public Alert[] findAll(){
-        return alertRepository.findAllByOrderByTimestamp();
+    public Alert[] findAlerts(){
+        return alertRepository.findAllByLevel("ERROR");
     }
 
     public void addAlert(Alert alert){
@@ -26,4 +26,13 @@ public class AlertService {
     public Integer countAllActive() {
         return alertRepository.findAllActiveByOrderByTimestamp().length;
     }
+
+    public Alert[] findWarnings(){
+        return alertRepository.findAllByLevel("WARN");
+    }
+
+    public Alert[] findLast5() {
+        return alertRepository.findLast5();
+    }
+
 }

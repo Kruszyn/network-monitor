@@ -18,7 +18,7 @@
                <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div style="background: #ff5849;font-style: red;" class="tile-stats">
                         <div style="color:white;" class="icon"><i class="fa fa-warning"></i></div>
-                        <div style="color:white;" class="count" id="alertCountDashboard"></div>
+                        <div style="color:white;" class="count" th:text="${alertsCount}"></div>
                         <h3  style="color:white;">Alarmy</h3>
                         <p></p>
                     </div>
@@ -28,7 +28,7 @@
                 <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div style="background: #ffad2a;" class="tile-stats">
                         <div style="color:white;" class="icon"><i class="fa fa-exclamation"></i></div>
-                        <div style="color:white;" class="count">11</div>
+                        <div style="color:white;" class="count" th:text="${warningCount}"></div>
                         <h3 style="color:white;">Ostrzeżenia</h3>
                         <p></p>
                     </div>

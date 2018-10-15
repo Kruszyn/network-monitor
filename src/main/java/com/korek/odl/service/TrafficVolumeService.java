@@ -44,11 +44,11 @@ public class TrafficVolumeService{
             if(t.getTrafficType().equals("IN")){
                 Long sumIn = trafficVolumeRepository.bytesSumByIface(t.getIface(), "IN");
                 if(sumIn == null)sumIn = 0L;
-                t.setBytesVolume(t.getBytesVolume()-sumIn);
+                t.setBytesVolume(t.getBytesVolume()/60-sumIn);
             } else if (t.getTrafficType().equals("OUT")){
                 Long sumOut = trafficVolumeRepository.bytesSumByIface(t.getIface(), "OUT");
                 if(sumOut == null)sumOut = 0L;
-                t.setBytesVolume(t.getBytesVolume()-sumOut);
+                t.setBytesVolume(t.getBytesVolume()/60-sumOut);
             } else{
                 log.error("Traffic volume with wrong type: " + t.getTrafficType());
             }

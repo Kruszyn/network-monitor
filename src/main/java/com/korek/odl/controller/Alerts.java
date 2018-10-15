@@ -17,8 +17,17 @@ public class Alerts {
 
     @GetMapping("/alerts")
     public String alerts(Model model){
-        model.addAttribute("alerts", alertService.findAll());
+        model.addAttribute("last5Alerts", alertService.findLast5());
+        model.addAttribute("alerts", alertService.findAlerts());
         model.addAttribute("nodeList", trafficVolumeService.findDistinctByNode());
         return "alerts";
+    }
+
+    @GetMapping("/warnings")
+    public String warnings(Model model){
+        model.addAttribute("last5Alerts", alertService.findLast5());
+        model.addAttribute("warnings", alertService.findWarnings());
+        model.addAttribute("nodeList", trafficVolumeService.findDistinctByNode());
+        return "warnings";
     }
 }

@@ -81,22 +81,21 @@
                         <span class="badge bg-red" id="alertCount"></span>
                     </a>
                     <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                        <li>
+                        <li th:each="alert : ${last5Alerts}">
                             <a>
-                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                <span>
-                      <span>John Smith</span>
-                      <span class="time">3 mins ago</span>
-                    </span>
-                                <span class="message">
-                      Film festivals used to be do-or-die moments for movie makers. They were where...
-                    </span>
+
+                          <span th:text="${alert.inventoryName}"></span>
+                          <span class="time"  th:text="${alert.timestamp}">2018-10-15 17:21:01.376</span>
+                            </span>
+                            <span th:text="${alert.msg}" class="message">
+                                Alert: LINK DOWN
+                            </span>
                             </a>
                         </li>
 
                         <li>
                             <div class="text-center">
-                                <a>
+                                <a th:href="@{/alerts}">
                                     <strong>See All Alerts</strong>
                                     <i class="fa fa-angle-right"></i>
                                 </a>
@@ -125,8 +124,7 @@
             level: "GET",
             success: function(data)
             {
-                $("#alertCount").text(data.toString());
-                $("#alertCountDashboard").text(data.toString());
+                $("#alertCount").text(data.toString());b
             }
         });
      };
